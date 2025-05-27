@@ -1,7 +1,6 @@
 /*
- * Copyright (c) 2021 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
+ * Keymap for rvnash's favorite Colemak layout of a Corne-like keyboard
+ * Each hand is 6x3 with 3 thumb keys.
  */
 
 #include <behaviors.dtsi>
@@ -18,19 +17,19 @@
 /* Combo helper, to DRY up combo definitions
  * usage: COMBO(vol_up, &kp C_VOL_UP,  9 19) */
 #define FAST_COMBO(name, keypress, keypos) \
-    combo_##name {                    \
-        layers = <0>;                 \
-        timeout-ms = <25>;            \
-        bindings = <keypress>;        \
-        key-positions = <keypos>;     \
+    combo_##name {                         \
+        layers = <0>;                      \
+        timeout-ms = <25>;                 \
+        bindings = <keypress>;             \
+        key-positions = <keypos>;          \
     };
 
 #define SLOW_COMBO(name, keypress, keypos) \
-    combo_##name {                    \
-        layers = <0>;                 \
-        timeout-ms = <75>;            \
-        bindings = <keypress>;        \
-        key-positions = <keypos>;     \
+    combo_##name {                         \
+        layers = <0>;                      \
+        timeout-ms = <75>;                 \
+        bindings = <keypress>;             \
+        key-positions = <keypos>;          \
     };
 
 /* Macro helper to DRY up simple keypress macros
@@ -47,13 +46,13 @@
 
 /* SHIFT_MORPH helper to DRY up SHIFT morpths
  * usage: SHIFT_MORPH(name, &kp A &kp B) */
-#define SHIFT_MORPH(name, keys)                  \
-    name: name##_macro {                   \
-        label = #name;                     \
+#define SHIFT_MORPH(name, keys)                \
+    name: name##_macro {                       \
+        label = #name;                         \
         compatible = "zmk,behavior-mod-morph"; \
-        #binding-cells = <0>;              \
-        bindings = <keys>;                 \
-        mods = <(MOD_LSFT | MOD_RSFT)>;    \
+        #binding-cells = <0>;                  \
+        bindings = <keys>;                     \
+        mods = <(MOD_LSFT | MOD_RSFT)>;        \
     };
 
 /* This is for snoyer's capslock based caps_word */
@@ -120,9 +119,9 @@
      };
 
     macros {
-        MACRO(scrn_shot, &kp LS(LG(N4)))  // Mac screenshot
-        MACRO(zm_mute, &kp LS(LG(A)))     // Zoom mute
-        MACRO(zm_cam, &kp LS(LG(V)))      // Zoom cam on/off
+        MACRO(scrn_shot, &kp LS(LG(N4)))     // Mac screenshot
+        MACRO(zm_mute, &kp LS(LG(A)))        // Zoom mute
+        MACRO(zm_cam, &kp LS(LG(V)))         // Zoom cam on/off
         MACRO(deskl, &kp LC(LEFT))           // Mac desktop previous
         MACRO(deskr, &kp LC(RIGHT))          // Mac desktop next
     };
@@ -130,7 +129,7 @@
     keymap {
         compatible = "zmk,keymap";
 
-        base_layer {
+base_layer {
             bindings = <
 &scrn_shot   &kp Q         &kp W        &kp F         &kp P            &kp B       /**/  &kp J         &kp L          &kp U        &kp Y        &kp SQT       &zm_mute
 &kp LCTRL    &hrm LCTRL A  &hrm LALT R  &hrm LCMD S   &kp T            &kp G       /**/  &kp M         &kp N          &hrm RCMD E  &hrm RALT I  &hrm RCTRL O  &zm_cam
@@ -139,48 +138,48 @@
             >;
         };
 
-        media_layer {
+media_layer /* MDA */ {
             bindings = <
-    &none       &none     &none     &none     &none       &none    /**/   &none      &none        &none     &none    &none         &none 
-    &none       &none     &none     &none     &none       &none    /**/   &none      &none        &none     &none    &kp C_BRI_UP  &none 
-    &deskl      &none     &none     &none     &none       &none    /**/   &none      &none        &none     &none    &kp C_BRI_DN  &deskr 
-                                    &none     &none       &none    /**/   &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP
+&none       &none     &none     &none     &none       &none    /**/   &none      &none        &none     &none    &none         &none 
+&none       &none     &none     &none     &none       &none    /**/   &none      &none        &none     &none    &kp C_BRI_UP  &none 
+&deskl      &none     &none     &none     &none       &none    /**/   &none      &none        &none     &none    &kp C_BRI_DN  &deskr 
+                                &none     &none       &none    /**/   &kp C_MUTE &kp C_VOL_DN &kp C_VOL_UP
             >;
         };
 
-        nav_layer {
+nav_layer /* NAV */ {
             bindings = <
-    &bootloader &bt BT_CLR &none    &none     &none       &none    /**/   &none      &none     &none     &none    &none      &none 
-    &none       &kp LCTRL &kp LALT  &kp LCMD  &kp LSHIFT  &none    /**/   &caps_word &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT  &none 
-    &lsh_caps   &none     &none     &none     &none       &none    /**/   &kp INS    &kp HOME  &kp PGDN  &kp PGUP &kp END    &rsh_caps
-                                    &none     &none       &none    /**/   &none      &none     &none 
+&bootloader &bt BT_CLR &none    &none     &none       &none    /**/   &none      &none     &none     &none    &none      &none 
+&none       &kp LCTRL  &kp LALT &kp LCMD  &kp LSHIFT  &none    /**/   &caps_word &kp LEFT  &kp DOWN  &kp UP   &kp RIGHT  &none 
+&lsh_caps   &none      &none    &none     &none       &none    /**/   &kp INS    &kp HOME  &kp PGDN  &kp PGUP &kp END    &rsh_caps
+                                &none     &none       &none    /**/   &none      &none     &none 
             >;
         };
 
-        symbol_layer {
+symbol_layer /* SYM */ {
             bindings = <
-    &none         &kp LBRC  &kp AMPS  &kp STAR  &kp LPAR    &kp RBRC  /**/   &none     &none      &none     &none     &none      &none 
-    &none         &kp COLON &kp DLLR  &kp PRCNT &kp CARET   &kp PLUS  /**/   &none     &kp RSHIFT &kp RCMD  &kp RALT  &kp RCTRL  &none 
-    &kp LG(RBKT)  &kp TILDE &kp EXCL  &kp AT    &kp HASH    &kp PIPE  /**/   &none     &none      &none     &none     &none      &kp LG(RBKT)
-                                      &kp LPAR  &kp RPAR    &kp UNDER /**/   &none     &none      &none 
+&none         &kp LBRC  &kp AMPS  &kp STAR  &kp LPAR    &kp RBRC  /**/   &none     &none      &none     &none     &none      &none 
+&none         &kp COLON &kp DLLR  &kp PRCNT &kp CARET   &kp PLUS  /**/   &none     &kp RSHIFT &kp RCMD  &kp RALT  &kp RCTRL  &none 
+&kp LG(RBKT)  &kp TILDE &kp EXCL  &kp AT    &kp HASH    &kp PIPE  /**/   &none     &none      &none     &none     &none      &kp LG(RBKT)
+                                  &kp LPAR  &kp RPAR    &kp UNDER /**/   &none     &none      &none 
             >;
         };
 
-        number_layer {
+number_layer /* NUM */ {
             bindings = <
-    &none            &kp LBKT  &kp N7    &kp N8    &kp N9      &kp RBKT  /**/   &none     &none      &none     &none     &none      &none 
-    &none            &kp SEMI  &kp N4    &kp N5    &kp N6      &kp EQUAL /**/   &none     &kp RSHIFT &kp RCMD  &kp RALT  &kp RCTRL  &none 
-    &kp LA(LG(LEFT)) &kp GRAVE &kp N1    &kp N2    &kp N3      &kp BSLH  /**/   &none     &none      &none     &none     &none      &kp LA(LG(RIGHT))
-                                         &kp N0    &kp DOT     &kp MINUS /**/   &none     &none      &none 
+&none            &kp LBKT  &kp N7    &kp N8    &kp N9      &kp RBKT  /**/   &none     &none      &none     &none     &none      &none 
+&none            &kp SEMI  &kp N4    &kp N5    &kp N6      &kp EQUAL /**/   &none     &kp RSHIFT &kp RCMD  &kp RALT  &kp RCTRL  &none 
+&kp LA(LG(LEFT)) &kp GRAVE &kp N1    &kp N2    &kp N3      &kp BSLH  /**/   &none     &none      &none     &none     &none      &kp LA(LG(RIGHT))
+                                     &kp N0    &kp DOT     &kp MINUS /**/   &none     &none      &none 
             >;
         };
 
-        function_layer {
+function_layer /* FUN */ {
             bindings = <
-    &none     &kp F12   &kp F7    &kp F8    &kp F9      &none    /**/   &none    &none     &none     &none    &none      &none 
-    &none     &kp F11   &kp F4    &kp F5    &kp F6      &none    /**/   &none    &none     &none     &none    &none      &none 
-    &deskl    &kp F10   &kp F1    &kp F2    &kp F3      &none    /**/   &none    &none     &none     &none    &none      &deskr
-                                  &none     &none       &none    /**/   &none    &none     &none 
+&none     &kp F12   &kp F7    &kp F8    &kp F9      &none    /**/   &none    &none     &none     &none    &none      &none 
+&none     &kp F11   &kp F4    &kp F5    &kp F6      &none    /**/   &none    &none     &none     &none    &none      &none 
+&deskl    &kp F10   &kp F1    &kp F2    &kp F3      &none    /**/   &none    &none     &none     &none    &none      &deskr
+                              &none     &none       &none    /**/   &none    &none     &none 
             >;
         };
 
