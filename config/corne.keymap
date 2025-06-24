@@ -108,6 +108,8 @@
     24 25 26 27 28 29       30 31 32 33 34 35
              36 37 38       39 40 41         */
 
+   /* Comment out combos */
+   /*
    combos {
         compatible = "zmk,combos";
         SLOW_COMBO(combo_lbkt, &kp LBKT, 1 2)
@@ -117,6 +119,7 @@
         SLOW_COMBO(combo_lbrc, &kp LBRC, 3 4)
         SLOW_COMBO(combo_rbrc, &kp RBRC, 7 8)
      };
+    */
 
     macros {
         MACRO(scrn_shot, &kp LS(LG(N4)))     // Mac screenshot
